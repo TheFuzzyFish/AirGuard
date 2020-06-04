@@ -25,9 +25,9 @@ Options:
     -h, --help          Displays this handy dandy help file!
     -v, --version       Displays program version info
     -i, --interface <>  The promiscuous interface to monitor (required)
-    -l, --list <>       The list of trusted MAC addresses to ignore (required)
+    -l, --list <>       The list of trusted device addresses to ignore (required)
     -b, --build         Switches the program into "builder" mode where it adds all nearby devices to a new
                         trusted MAC list, specified by --list
-    -d, --dbm           The signal strength threshold that devices must be within to be detected (default -50 dBm is usually fine)
-    --log <>            The file path to log MAC intrusions
-    --script <>         The script to run when a match is detected. The unrecognized MAC is passed as an argument to the script
+    -d, --dbm <>        The signal strength threshold that devices must be within to be detected (default -50 dBm is usually fine)
+    --log <>            The file path to log alien devices
+    --script <>         The script to run when an alien device is detected. The unrecognized MAC is passed as an argument to the script

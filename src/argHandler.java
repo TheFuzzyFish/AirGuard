@@ -28,7 +28,7 @@ public class argHandler {
     public argHandler(String[] args) {
         doExit = true; // Flag is flipped per the arguments for whether or not main() should immediately exit based on context
         version = getAsset("version.txt"); // Not quite sure why I decided to do this, but I'm going to make argHandler in charge of the version number throughout the rest of the program
-        this.dbm = -50;
+        this.dbm = -60;
 
         /* If there were no arguments supplied, print the help file */
         if (args.length == 0) {
