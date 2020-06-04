@@ -1,0 +1,33 @@
+AirGuard is a real-world intrusion detection system based around the detection of Wi-Fi packets from mobile devices.
+
+In a standard scenario, this can be installed on a Raspberry Pi or some other small computer tucked away on your
+property, and after building a list of recognized MAC addresses, it will begin monitoring the airwaves. If it detects
+a MAC address that is not in the list, it will send an alert or run a script (every 60 seconds if the MAC address
+continues to be seen). Right now, AirGuard is only 2.4 GHz capable, since most devices are rather chatty on that band.
+
+To start, use --build to begin creating a list of all nearby devices seen. It will automatically authorize any devices
+(including Wi-Fi access points) in range, so be sure that you're the only one nearby. If you live in a congested area,
+you may want to consider narrowing your range by bringing --dbm closer to zero (default -50). Once you've got all your
+devices in the list, stop AirGuard then restart it without the --build flag. It should begin showing alerts for any
+devices detected that are not in the list. You can run a --script when these detections occur to notify you. If a device
+is consistent, you will only get 1 alert/log/execution per minute for that particular device.
+
+Usage:
+    java -jar AirGuard.jar --interface <interface> --list <trusted_mac_list> <options>
+
+Examples:
+    java -jar AirGuard.jar -i wlo1mon -l /var/knownMACs.txt
+    java -jar AirGuard.jar -i wlo1mon -l /var/knownMACS.txt --script /usr/local/share/alertTheAdmin.py
+    java -jar AirGuard.jar -i wlo1mon -l /var/knownMACS.txt --log /var/log/airguard.log --script /usr/local/share/scripts/alertTheAdmin.py
+    java -jar AirGuard.jar -i wlo1mon -l /var/knownMACS.txt --dbm -30 -b
+
+Options:
+    -h, --help          Displays this handy dandy help file!
+    -v, --version       Displays program version info
+    -i, --interface <>  The promiscuous interface to monitor (required)
+    -l, --list <>       The list of trusted MAC addresses to ignore (required)
+    -b, --build         Switches the program into "builder" mode where it adds all nearby devices to a new
+                        trusted MAC list, specified by --list
+    -d, --dbm           The signal strength threshold that devices must be within to be detected (default -50 dBm is usually fine)
+    --log <>            The file path to log MAC intrusions
+    --script <>         The script to run when a match is detected. The unrecognized MAC is passed as an argument to the script
